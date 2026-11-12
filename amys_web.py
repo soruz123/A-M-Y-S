@@ -1,4 +1,4 @@
-"""AMYS - Paso 5: ventana visual en el navegador."""
+"""AMYS - ventana visual con voz y micrófono."""
 
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -30,6 +30,8 @@ PAGINA = """<!DOCTYPE html>
   button { padding:12px 22px; background:#D4AF37; color:#0B0C10;
            border:none; border-radius:8px; font-weight:bold;
            font-size:16px; cursor:pointer; }
+  #mic { background:#45A29E; }
+  #mic.activo { background:#c0392b; color:#fff; }
 </style>
 </head>
 <body>
@@ -39,7 +41,8 @@ PAGINA = """<!DOCTYPE html>
 </header>
 <div id="chat"></div>
 <footer>
-  <input id="texto" placeholder="Escribe aqui, Samuel..." autofocus>
+  <button id="mic" onclick="escuchar()">Mic</button>
+  <input id="texto" placeholder="Escribe o usa el Mic, Samuel..." autofocus>
   <button onclick="enviar()">Enviar</button>
 </footer>
 <script>
@@ -47,6 +50,7 @@ const historial = [];
 const chat = document.getElementById('chat');
 const caja = document.getElementById('texto');
 const estado = document.getElementById('estado');
+const botonMic = document.getElementById('mic');
 
 function agregar(clase, texto) {
   const d = document.createElement('div');
@@ -57,7 +61,31 @@ function agregar(clase, texto) {
   return d;
 }
 
-function hablar(t) { const v = new SpeechSynthesisUtterance(t); v.lang = 'es-ES'; speechSynthesis.cancel(); speechSynthesis.speak(v); }
+function hablar(t) {
+  const v = new SpeechSynthesisUtterance(t);
+  v.lang = 'es-ES';
+  speechSynthesis.cancel();
+  speechSynthesis.speak(v);
+}
+
+function escuchar() {
+  const Reco = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!Reco) {
+    agregar('amys', 'Este navegador no soporta el microfono. Usa Chrome o Edge.');
+    return;
+  }
+  const r = new Reco();
+  r.lang = 'es-ES';
+  r.onstart = function() { botonMic.classList.add('activo'); botonMic.textContent = 'Escuchando...'; };
+  r.onend = function() { botonMic.classList.remove('activo'); botonMic.textContent = 'Mic'; };
+  r.onerror = function(e) { agregar('amys', 'No pude escucharte (' + e.error + ').'); };
+  r.onresult = function(e) {
+    caja.value = e.results[0][0].transcript;
+    enviar();
+  };
+  r.start();
+}
+
 async function enviar() {
   const t = caja.value.trim();
   if (!t) return;
@@ -72,7 +100,8 @@ async function enviar() {
       body: JSON.stringify({historial: historial})
     });
     const d = await r.json();
-    espera.textContent = d.respuesta; hablar(d.respuesta);
+    espera.textContent = d.respuesta;
+    hablar(d.respuesta);
     historial.push({role: 'assistant', content: d.respuesta});
     estado.textContent = 'Cerebro: ' + d.modo;
   } catch (e) {
