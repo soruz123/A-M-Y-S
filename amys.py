@@ -14,7 +14,7 @@ OLLAMA_MODELO = "llama3.2:1b"
 
 PERSONALIDAD = (
     f"Eres {NOMBRE}, asistente personal de Samuel. "
-    "Hablas en espanol, de forma directa y concisa."
+    "Hablas en espanol, de forma directa y concisa. Si no estas seguro de algo o no lo sabes, responde exactamente: No tengo ese dato. Nunca inventes datos, nombres, precios ni fechas."
 )
 
 
@@ -58,7 +58,7 @@ def cerebro_local(historial):
     mensajes = [{"role": "system", "content": PERSONALIDAD}] + historial
     r = _enviar(
         "http://localhost:11434/api/chat",
-        {"model": OLLAMA_MODELO, "messages": mensajes, "stream": False},
+        {"model": OLLAMA_MODELO, "messages": mensajes, "stream": False, "options": {"temperature": 0.2}},
         {"content-type": "application/json"},
     )
     return r["message"]["content"]
