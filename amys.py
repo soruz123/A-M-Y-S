@@ -67,7 +67,7 @@ def cerebro_local(historial):
 def cerebro_basico(texto):
     t = texto.lower()
     if "hola" in t:
-        return f"Hola Juan, soy {NOMBRE}."
+        return f"Hola Samuel, soy {NOMBRE}."
     if "hora" in t:
         from datetime import datetime
         return "Son las " + datetime.now().strftime("%H:%M")
@@ -92,7 +92,7 @@ def main():
     while True:
         texto = input("Tu: ").strip()
         if texto.lower() in ("salir", "exit"):
-            print(f"{NOMBRE}: Hasta luego, Juan.")
+            print(f"{NOMBRE}: Hasta luego, Samuel.")
             break
         if not texto:
             continue

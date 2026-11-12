@@ -39,7 +39,7 @@ PAGINA = """<!DOCTYPE html>
 </header>
 <div id="chat"></div>
 <footer>
-  <input id="texto" placeholder="Escribe aqui, Juan..." autofocus>
+  <input id="texto" placeholder="Escribe aqui, Samuel..." autofocus>
   <button onclick="enviar()">Enviar</button>
 </footer>
 <script>
