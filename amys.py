@@ -10,7 +10,7 @@ NOMBRE = "AMYS"
 
 CLAUDE_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 CLAUDE_MODELO = "claude-sonnet-5-5"
-OLLAMA_MODELO = "llama3.2:1b"
+OLLAMA_MODELO = "llama3.2"
 
 PERSONALIDAD = (
     f"Eres {NOMBRE}, asistente personal de Samuel. "
