@@ -13,7 +13,7 @@ CLAUDE_MODELO = "claude-sonnet-5-5"
 OLLAMA_MODELO = "llama3.2:1b"
 
 PERSONALIDAD = (
-    f"Eres {A,M,Y,S}, asistente personal de samuel. "
+    f"Eres {NOMBRE}, asistente personal de Samuel. "
     "Hablas en espanol, de forma directa y concisa."
 )
 

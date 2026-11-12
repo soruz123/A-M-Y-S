@@ -57,6 +57,7 @@ function agregar(clase, texto) {
   return d;
 }
 
+function hablar(t) { const v = new SpeechSynthesisUtterance(t); v.lang = 'es-ES'; speechSynthesis.cancel(); speechSynthesis.speak(v); }
 async function enviar() {
   const t = caja.value.trim();
   if (!t) return;
@@ -71,7 +72,7 @@ async function enviar() {
       body: JSON.stringify({historial: historial})
     });
     const d = await r.json();
-    espera.textContent = d.respuesta;
+    espera.textContent = d.respuesta; hablar(d.respuesta);
     historial.push({role: 'assistant', content: d.respuesta});
     estado.textContent = 'Cerebro: ' + d.modo;
   } catch (e) {
@@ -117,4 +118,3 @@ class Manejador(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     print("AMYS visual encendida en el puerto 8000")
     ThreadingHTTPServer(("0.0.0.0", 8000), Manejador).serve_forever()
-    
