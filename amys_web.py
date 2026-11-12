@@ -12,12 +12,12 @@ PAGINA = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AMYS</title>
 <style>
-  :root { --c:#66fcf1; --c2:#45A29E; --g:#D4AF37; --bg:#0B0C10; }
-  body[data-modo="escuchando"] { --c:#D4AF37; --c2:#b8922a; }
+  :root { --c:#b57bff; --c2:#7a3fd1; --g:#ffd23f; --bg:#0B0C10; }
+  body[data-modo="escuchando"] { --c:#ffd23f; --c2:#d9a800; }
   * { box-sizing:border-box; }
-  body { margin:0; height:100vh; overflow:hidden; color:#cfeeee;
+  body { margin:0; height:100vh; overflow:hidden; color:#e6dcff;
          font-family:'Courier New', monospace;
-         background:radial-gradient(circle at 30% 50%, #10181f, #0B0C10 70%); }
+         background:radial-gradient(circle at 30% 50%, #1a1030, #0B0C10 70%); }
   #app { display:grid; grid-template-columns:1fr 430px;
          grid-template-rows:60px 1fr; height:100vh; }
   header { grid-column:1 / 3; display:flex; align-items:center;
@@ -49,15 +49,15 @@ PAGINA = """<!DOCTYPE html>
   @keyframes pulso { 0%,100% { transform:scale(1); opacity:0.75; }
                      50% { transform:scale(1.18); opacity:1; } }
   #panel { display:flex; flex-direction:column; min-height:0;
-           border-left:1px solid var(--c2); background:rgba(10,16,20,0.7); }
+           border-left:1px solid var(--c2); background:rgba(18,10,32,0.75); }
   #chat { flex:1; overflow-y:auto; padding:18px; }
   .msg { padding:10px 12px; margin:10px 0; line-height:1.45;
          white-space:pre-wrap; font-size:14px;
-         border-left:3px solid var(--c2); background:rgba(20,30,36,0.7); }
+         border-left:3px solid var(--c2); background:rgba(35,20,60,0.7); }
   .yo { border-left-color:var(--g); color:#f1e3b0; }
   .amys { border-left-color:var(--c); }
   footer { display:flex; gap:8px; padding:14px; border-top:1px solid var(--c2); }
-  input { flex:1; min-width:0; padding:11px; background:#0d1318; color:#fff;
+  input { flex:1; min-width:0; padding:11px; background:#140c24; color:#fff;
           border:1px solid var(--c2); font-family:inherit; font-size:14px; }
   button { padding:11px 14px; background:transparent; color:var(--c);
            border:1px solid var(--c); font-family:inherit; font-size:13px;
